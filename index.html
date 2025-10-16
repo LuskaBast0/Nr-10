@@ -729,6 +729,158 @@
             font-size: 1.125rem;
         }
         
+        /* --- START: Perspective Carousel Styles --- */
+        #new-carousel {
+            overflow: hidden;
+            background-color: var(--color-background-light);
+        }
+        .perspective-carousel-wrapper {
+            position: relative;
+            width: 100%;
+            height: 500px; /* Adjusted height for landscape */
+            perspective: 2000px; /* Increased perspective */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 4rem;
+        }
+
+        .perspective-carousel {
+            position: absolute;
+            width: 800px; /* Increased width for landscape */
+            height: 450px; /* Adjusted height */
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .carousel-slide {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-white);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
+            cursor: pointer;
+            display: flex;
+        }
+        
+        .slide-image-wrapper {
+            flex: 0 0 60%;
+            height: 100%;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            -webkit-user-drag: none;
+            user-select: none;
+        }
+
+        .slide-text-wrapper {
+            flex: 1;
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .slide-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 1.5rem;
+            color: var(--color-text-primary);
+        }
+        
+        .slide-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .slide-actions .btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Classes for slide positions */
+        .slide-active {
+            transform: translateX(0) translateZ(0) rotateY(0);
+            z-index: 10;
+            opacity: 1;
+            cursor: default;
+        }
+        .slide-prev {
+            transform: translateX(-55%) translateZ(-350px) rotateY(45deg);
+            z-index: 5;
+            opacity: 0.7;
+        }
+        .slide-next {
+            transform: translateX(55%) translateZ(-350px) rotateY(-45deg);
+            z-index: 5;
+            opacity: 0.7;
+        }
+        .slide-hidden {
+            transform: translateX(0) translateZ(-700px) rotateY(0);
+            z-index: 1;
+            opacity: 0;
+        }
+        
+        .perspective-carousel-nav {
+            position: absolute;
+            top: 50%;
+            z-index: 20;
+            transform: translateY(-50%);
+            background: var(--color-white);
+            border: none;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .perspective-carousel-nav:hover {
+            transform: translateY(-50%) scale(1.1);
+            background-color: #f0f0f0;
+        }
+        .perspective-carousel-nav.prev {
+            left: -1.5rem;
+        }
+        .perspective-carousel-nav.next {
+            right: -1.5rem;
+        }
+        .perspective-carousel-nav .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: var(--color-text-primary);
+        }
+        
+        @media (max-width: 900px) {
+            .perspective-carousel { width: 90%; height: auto; aspect-ratio: 4 / 5; }
+            .carousel-slide { flex-direction: column; }
+            .slide-image-wrapper { flex: 0 0 60%; }
+            .slide-text-wrapper { padding: 1.5rem; }
+            .slide-title { font-size: 1.25rem; margin-bottom: 1rem; }
+            .slide-prev { transform: translateX(-50%) translateZ(-180px) rotateY(35deg); }
+            .slide-next { transform: translateX(50%) translateZ(-180px) rotateY(-35deg); }
+        }
+        
+        @media (max-width: 640px) {
+            .perspective-carousel-nav.prev { left: 0rem; }
+            .perspective-carousel-nav.next { right: 0rem; }
+        }
+        /* --- END: Perspective Carousel Styles --- */
+        
+        
         /* Estilos do Drawer (Orçamento) */
         .drawer-overlay {
             position: fixed;
@@ -1211,6 +1363,14 @@
             .testimonials-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            /* Perspective Carousel */
+            .perspective-carousel-nav.prev {
+                left: calc(50% - 470px);
+            }
+            .perspective-carousel-nav.next {
+                right: calc(50% - 470px);
+            }
 
             /* Footer */
              .footer-grid {
@@ -1228,6 +1388,14 @@
             /* Testemunhos */
             .testimonials-grid {
                 grid-template-columns: repeat(3, 1fr);
+            }
+
+            /* Perspective Carousel */
+            .perspective-carousel-nav.prev {
+                left: calc(50% - 450px);
+            }
+            .perspective-carousel-nav.next {
+                right: calc(50% - 450px);
             }
 
             /* Footer */
@@ -1255,7 +1423,7 @@
                     <a href="#cabeça">                Cabeça      </a>
                     <a href="#interactive-product">   Tronco      </a>
                     <a href="#interactive-product-2"> Pernas      </a>
-                    <a href="#pes">                   Pés         </a>
+                    <a href="#new-carousel">          Pés         </a>
                     <a href="#luvas">                 Luvas       </a>
                 </div>
 
@@ -1281,7 +1449,7 @@
                 <a href="#cabeça">                Cabeça      </a>
                 <a href="#interactive-product">   Tronco      </a>
                 <a href="#interactive-product-2"> Pernas      </a>
-                <a href="#pes">                   Pés         </a>
+                <a href="#new-carousel">          Pés         </a>
                 <a href="#luvas">                 Luvas       </a>
             </div>
     </header>
@@ -1584,10 +1752,119 @@
             </div>
         </section>
 
+        <!-- ============================================= -->
+        <!--        NEW 3D PERSPECTIVE CAROUSEL            -->
+        <!-- ============================================= -->
+        <section id="new-carousel" class="feature-section section-padding">
+            <div class="container">
+            <h2 class="section-title text-center scroll-animate"> Proteção para os<span class="highlight"> Pés</span></h2>
+                <div class="perspective-carousel-wrapper scroll-animate">
+                    <div class="perspective-carousel">
+
+                        <!-- Slide 1 -->
+                        <div class="carousel-slide" data-index="0">
+                            <div class="slide-image-wrapper">
+                                <img src="pés teste 1.png" alt="Capacete de Segurança">
+                            </div>
+                            <div class="slide-text-wrapper">
+                                
+                                <h4 class="slide-title">Tênis de Segurança </h4>
+                                
+
+                                <div class="slide-actions">
+                                     <a href="https://caepi.mte.gov.br/" target="_blank" rel="noopener noreferrer" class="btn btn-neutral ca-button" data-tooltip="C.A. significa 'Certificado de Aprovação'. É uma garantia do Ministério do Trabalho de que o equipamento de proteção foi testado e aprovado.">
+                                        <span>Consultar C.A.</span>
+                                        <svg class="icon-info" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                    </a>
+                                    <button class="btn btn-primary add-to-cart-btn" data-product-id="19" data-product-name="Capacete de Segurança" data-product-image="https://images.unsplash.com/photo-1581889856532-6273c8703433?q=80&w=1974&auto=format&fit=crop">Adicionar ao Orçamento</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2 -->
+                         <div class="carousel-slide" data-index="1">
+                            <div class="slide-image-wrapper">
+                                <img src="pés teste 2.png" alt="Luvas de Proteção">
+                            </div>
+                            <div class="slide-text-wrapper">
+                                <h4 class="slide-title">Tênis de Segurança </h4>
+                                <div class="slide-actions">
+                                     <a href="https://caepi.mte.gov.br/" target="_blank" rel="noopener noreferrer" class="btn btn-neutral ca-button" data-tooltip="C.A. significa 'Certificado de Aprovação'. É uma garantia do Ministério do Trabalho de que o equipamento de proteção foi testado e aprovado.">
+                                        <span>Consultar C.A.</span>
+                                        <svg class="icon-info" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                    </a>
+                                    <button class="btn btn-primary add-to-cart-btn" data-product-id="20" data-product-name="Luvas de Proteção" data-product-image="https://images.unsplash.com/photo-1601443697969-9a49372049d0?q=80&w=1964&auto=format&fit=crop">Adicionar ao Orçamento</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="carousel-slide" data-index="2">
+                            <div class="slide-image-wrapper">
+                                <img src="pés teste 3.png" alt="Botas de Segurança">
+                            </div>
+                            <div class="slide-text-wrapper">
+                                <h4 class="slide-title">Bota De Segurança  </h4>
+                                <div class="slide-actions">
+                                     <a href="https://caepi.mte.gov.br/" target="_blank" rel="noopener noreferrer" class="btn btn-neutral ca-button" data-tooltip="C.A. significa 'Certificado de Aprovação'. É uma garantia do Ministério do Trabalho de que o equipamento de proteção foi testado e aprovado.">
+                                        <span>Consultar C.A.</span>
+                                        <svg class="icon-info" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                    </a>
+                                    <button class="btn btn-primary add-to-cart-btn" data-product-id="21" data-product-name="Botas de Segurança" data-product-image="https://images.unsplash.com/photo-1634551351185-1d6a6d074558?q=80&w=1974&auto=format&fit=crop">Adicionar ao Orçamento</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 4 -->
+                        <div class="carousel-slide" data-index="3">
+                            <div class="slide-image-wrapper">
+                                <img src="pés teste 4.png" alt="Óculos de Proteção">
+                            </div>
+                            <div class="slide-text-wrapper">
+                                <h4 class="slide-title">Botina de Segurança  </h4>
+                                <div class="slide-actions">
+                                     <a href="https://caepi.mte.gov.br/" target="_blank" rel="noopener noreferrer" class="btn btn-neutral ca-button" data-tooltip="C.A. significa 'Certificado de Aprovação'. É uma garantia do Ministério do Trabalho de que o equipamento de proteção foi testado e aprovado.">
+                                        <span>Consultar C.A.</span>
+                                        <svg class="icon-info" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                    </a>
+                                    <button class="btn btn-primary add-to-cart-btn" data-product-id="22" data-product-name="Óculos de Proteção" data-product-image="https://images.unsplash.com/photo-1614728263944-12a1c028a1c7?q=80&w=1974&auto=format&fit=crop">Adicionar ao Orçamento</button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Slide 5 -->
+                        <div class="carousel-slide" data-index="4">
+                            <div class="slide-image-wrapper">
+                                <img src="pés teste 5.png" alt="Capacete de Segurança">
+                            </div>
+                            <div class="slide-text-wrapper">
+                                <h4 class="slide-title">Botina Bidensidade</h4>
+                                <div class="slide-actions">
+                                     <a href="https://caepi.mte.gov.br/" target="_blank" rel="noopener noreferrer" class="btn btn-neutral ca-button" data-tooltip="C.A. significa 'Certificado de Aprovação'. É uma garantia do Ministério do Trabalho de que o equipamento de proteção foi testado e aprovado.">
+                                        <span>Consultar C.A.</span>
+                                        <svg class="icon-info" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                    </a>
+                                    <button class="btn btn-primary add-to-cart-btn" data-product-id="23" data-product-name="Capacete de Segurança" data-product-image="https://images.unsplash.com/photo-1581889856532-6273c8703433?q=80&w=1974&auto=format&fit=crop">Adicionar ao Orçamento</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button class="perspective-carousel-nav prev" aria-label="Anterior">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <button class="perspective-carousel-nav next" aria-label="Próximo">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
 
         <!-- ============================================= -->
         <!--                 FEATURE SECTION 2             -->
-        <!-- ============================================= -->
+        <!-- ============================================= 
         <section id="ecommerce" class="feature-section alt-bg section-padding">
             <div class="container">
                 <div class="feature-content reverse scroll-animate">
@@ -1605,7 +1882,7 @@
                         </ul>
                     </div>
                 </div>
-                <!-- PRODUTOS RELACIONADOS 2 -->
+                <!-- PRODUTOS RELACIONADOS 2 
                 <div class="related-products related-products-bg-2 scroll-animate">
                     <h3 class="subsection-title">Produtos <span class="highlight">Relacionados</span></h3>
                     <div class="products-grid">
@@ -1656,80 +1933,8 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section>-->
         
-        <!-- ============================================= -->
-        <!--                 FEATURE SECTION 3             -->
-        <!-- ============================================= -->
-        <section id="web-apps" class="feature-section section-padding">
-            <div class="container">
-                <div class="feature-content scroll-animate">
-                    <div class="feature-image">
-                        <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=2070&auto=format&fit=crop" alt="Gráficos e painéis de dados em uma tela">
-                    </div>
-                    <div class="feature-text">
-                        <h3>Aplicações Web Interativas</h3>
-                        <p>Especializamo-nos na criação de Aplicações de Página Única (SPAs) que oferecem uma experiência de usuário fluida e semelhante à de um aplicativo de desktop. Usando as tecnologias mais recentes, construímos painéis de controle e plataformas sociais que são rápidas e ricas em recursos.</p>
-                        <ul class="feature-list">
-                           <li><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Interfaces Reativas</span></li>
-                           <li><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Performance Elevada</span></li>
-                           <li><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Atualizações em Tempo Real</span></li>
-                           <li><svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>APIs Robustas</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- PRODUTOS RELACIONADOS 3 -->
-                <div class="related-products related-products-bg-3 scroll-animate">
-                    <h3 class="subsection-title">Produtos <span class="highlight">Relacionados</span></h3>
-                    <div class="products-grid">
-                        <div class="product-card scroll-animate">
-                            <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=2070&auto=format&fit=crop" alt="Plataforma SaaS">
-                            <div class="product-card-content">
-                                <h3>Plataforma SaaS</h3>
-                                <p>Lance seu software como serviço com nosso framework escalável e seguro.</p>
-                                <div class="product-card-actions">
-                                    <a href="https://caepi.mte.gov.br/" target="_blank" rel="noopener noreferrer" class="btn btn-neutral">Consultar C.A.</a>
-                                    <button class="btn btn-primary add-to-cart-btn" data-product-id="9" data-product-name="Plataforma SaaS" data-product-image="https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=2070&auto=format&fit=crop">Adicionar ao Orçamento</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card scroll-animate">
-                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop" alt="Dashboard Interativo">
-                            <div class="product-card-content">
-                                <h3>Dashboard Interativo</h3>
-                                <p>Uma ferramenta poderosa para visualização de dados em tempo real.</p>
-                                <div class="product-card-actions">
-                                    <a href="https://caepi.mte.gov.br/" target="_blank" rel="noopener noreferrer" class="btn btn-neutral">Consultar C.A.</a>
-                                    <button class="btn btn-primary add-to-cart-btn" data-product-id="10" data-product-name="Dashboard Interativo" data-product-image="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop">Adicionar ao Orçamento</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card scroll-animate">
-                            <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=2070&auto=format&fit=crop" alt="Portal do Cliente">
-                            <div class="product-card-content">
-                                <h3>Portal do Cliente</h3>
-                                <p>Ofereça autoatendimento e suporte 24/7 para seus clientes.</p>
-                                <div class="product-card-actions">
-                                    <a href="https://caepi.mte.gov.br/" target="_blank" rel="noopener noreferrer" class="btn btn-neutral">Consultar C.A.</a>
-                                    <button class="btn btn-primary add-to-cart-btn" data-product-id="11" data-product-name="Portal do Cliente" data-product-image="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=2070&auto=format&fit=crop">Adicionar ao Orçamento</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card scroll-animate">
-                            <img src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?q=80&w=2070&auto=format&fit=crop" alt="Rede Social Corporativa">
-                            <div class="product-card-content">
-                                <h3>Rede Social Corporativa</h3>
-                                <p>Conecte seus colaboradores e fortaleça a cultura da sua empresa.</p>
-                                <div class="product-card-actions">
-                                    <a href="https://caepi.mte.gov.br/" target="_blank" rel="noopener noreferrer" class="btn btn-neutral">Consultar C.A.</a>
-                                    <button class="btn btn-primary add-to-cart-btn" data-product-id="12" data-product-name="Rede Social Corporativa" data-product-image="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?q=80&w=2070&auto=format&fit=crop">Adicionar ao Orçamento</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
         
 
         <!-- ============================================= -->
@@ -1742,42 +1947,38 @@
                     A confiança dos nossos clientes é o nosso maior ativo. Veja como nossas soluções transformaram seus negócios.
                 </p>
                 <div class="testimonials-grid">
+
                     <!-- Testimonial Card 1 -->
                     <div class="testimonial-card scroll-animate">
-                        <svg class="quote-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-                        <p class="testimonial-text">"A plataforma de e-commerce que eles desenvolveram superou todas as nossas expectativas. As vendas aumentaram 40% no primeiro trimestre!"</p>
-                        <div class="testimonial-author">
-                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Foto de Maria Silva" class="author-image">
-                            <div class="author-info">
-                                <span class="author-name">Maria Silva</span>
-                                <span class="author-title">CEO, Loja da Maria</span>
-                            </div>
-                        </div>
+                        <p>
+                            A NR 10 é uma norma regulamentadora do
+                            Ministério do Trabalho e Emprego que visa garantir
+                            a segurança e saúde dos trabalhadores que interagem
+                            com eletricidade em suas atividades profissionais. 
+                            Ela estabelece requisitos e condições mínimas para a 
+                            segurança e saúde dos trabalhadores, incluindo medidas 
+                            de controle do risco elétrico, treinamento, e responsabilidades. 
+                        </p>
                     </div>
+                    
                     <!-- Testimonial Card 2 -->
                     <div class="testimonial-card scroll-animate">
-                        <svg class="quote-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-                        <p class="testimonial-text">"O sistema de gestão interna otimizou nossos processos de uma forma que não achávamos ser possível. Economizamos centenas de horas de trabalho manual."</p>
-                        <div class="testimonial-author">
-                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026705d" alt="Foto de João Pereira" class="author-image">
-                            <div class="author-info">
-                                <span class="author-name">João Pereira</span>
-                                <span class="author-title">Diretor de Operações, Indústria Forte</span>
-                            </div>
-                        </div>
+                        <video video autoplay loop muted width="400" height="400" >
+                            <source src="NR BOY.mp4" type="video/mp4">
+                        </video>
                     </div>
+
                     <!-- Testimonial Card 3 -->
                     <div class="testimonial-card scroll-animate">
-                         <svg class="quote-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-                        <p class="testimonial-text">"A equipe não apenas entregou um produto de alta qualidade, mas também ofereceu um suporte incrível durante todo o projeto. Recomendo fortemente!"</p>
-                        <div class="testimonial-author">
-                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026706d" alt="Foto de Ana Costa" class="author-image">
-                            <div class="author-info">
-                                <span class="author-name">Ana Costa</span>
-                                <span class="author-title">Gerente de TI, Tech Solutions</span>
-                            </div>
-                        </div>
+                        <p>
+                            EPI, ou Equipamento de Proteção Individual, refere-se a todo dispositivo
+                            ou produto de uso individual utilizado pelo trabalhador para proteger-se
+                            contra riscos que possam ameaçar sua segurança e saúde no ambiente de trabalho.
+                            Esses equipamentos são essenciais para minimizar riscos e promover a segurança
+                            dos trabalhadores em diversas atividades profissionais.
+                        </p> 
                     </div>
+
                 </div>
             </div>
         </section>
@@ -1792,23 +1993,24 @@
                 <h3 class="text-center scroll-animate" style="color: var(--color-text-secondary); font-weight: 500; margin-bottom: 2rem;">Tecnologias e parceiros que confiam em nosso trabalho</h3>
                 <div class="logo-carousel scroll-animate">
                     <div class="logo-carousel-track">
+
                         <!-- Logos (Set 1) -->
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=React" alt="Logo da React"></div>
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=Node.js" alt="Logo da Node.js"></div>
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=AWS" alt="Logo da AWS"></div>
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=Next.js" alt="Logo da Next.js"></div>
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=Figma" alt="Logo da Figma"></div>
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=Stripe" alt="Logo da Stripe"></div>
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=Vercel" alt="Logo da Vercel"></div>
+                        <div class="logo-slide"><img src="logo 1.png"     alt="Logo da React">      </div>
+                        <div class="logo-slide"><img src="logo 2.png"   alt="Logo da Node.js">      </div>
+                        <div class="logo-slide"><img src="logo 3.png"       alt="Logo da AWS">      </div>
+                        <div class="logo-slide"><img src="logo 4.png"   alt="Logo da Next.js">      </div>
+                        <div class="logo-slide"><img src="logo 5.png"     alt="Logo da Figma">      </div>
+                        <div class="logo-slide"><img src="logo 6.png"    alt="Logo da Stripe">      </div>
+
                         
                         <!-- Logos (Set 2 for infinite loop) -->
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=React" alt="Logo da React"></div>
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=Node.js" alt="Logo da Node.js"></div>
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=AWS" alt="Logo da AWS"></div>
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=Next.js" alt="Logo da Next.js"></div>
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=Figma" alt="Logo da Figma"></div>
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=Stripe" alt="Logo da Stripe"></div>
-                        <div class="logo-slide"><img src="https://placehold.co/150x50/e2e8f0/475569?text=Vercel" alt="Logo da Vercel"></div>
+                        <div class="logo-slide"><img src="logo 1.png"     alt="Logo da React">      </div>
+                        <div class="logo-slide"><img src="logo 2.png"   alt="Logo da Node.js">      </div>
+                        <div class="logo-slide"><img src="logo 3.png"       alt="Logo da AWS">      </div>
+                        <div class="logo-slide"><img src="logo 4.png"   alt="Logo da Next.js">      </div>
+                        <div class="logo-slide"><img src="logo 5.png"     alt="Logo da Figma">      </div>
+                        <div class="logo-slide"><img src="logo 6.png"    alt="Logo da Stripe">      </div>
+                        
                     </div>
                 </div>
             </div>
@@ -1907,7 +2109,7 @@
         </div>
     </footer>
 
-   <script type="module">
+    <script type="module">
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- Mobile Menu Logic ---
@@ -2049,8 +2251,14 @@
                     // --- Fly-to-Cart Animation Logic ---
                     let productImageElement = clickedButton.closest('.product-card')?.querySelector('img');
                     if (!productImageElement) {
-                        productImageElement = clickedButton.closest('.product-interactive-grid').querySelector('.product-carousel-slide img');
+                        // For interactive product sections
+                        productImageElement = clickedButton.closest('.product-interactive-grid')?.querySelector('.product-carousel-slide img');
                     }
+                    if (!productImageElement) {
+                        // For perspective carousel
+                        productImageElement = clickedButton.closest('.carousel-slide.slide-active')?.querySelector('img');
+                    }
+
 
                     if (productImageElement) {
                         const startRect = productImageElement.getBoundingClientRect();
@@ -2135,6 +2343,54 @@
             cartCloseButton?.addEventListener('click', toggleCart);
             renderCart();
 
+            // --- Perspective Carousel Logic ---
+            const perspectiveCarouselSection = document.getElementById('new-carousel');
+            if(perspectiveCarouselSection) {
+                const slides = perspectiveCarouselSection.querySelectorAll('.carousel-slide');
+                const prevBtn = perspectiveCarouselSection.querySelector('.perspective-carousel-nav.prev');
+                const nextBtn = perspectiveCarouselSection.querySelector('.perspective-carousel-nav.next');
+                let currentIndex = 0;
+                const slideCount = slides.length;
+
+                const updateCarousel = () => {
+                    slides.forEach((slide, index) => {
+                        slide.classList.remove('slide-active', 'slide-prev', 'slide-next', 'slide-hidden');
+                        
+                        if(index === currentIndex) {
+                            slide.classList.add('slide-active');
+                        } else if(index === (currentIndex - 1 + slideCount) % slideCount) {
+                            slide.classList.add('slide-prev');
+                        } else if(index === (currentIndex + 1) % slideCount) {
+                            slide.classList.add('slide-next');
+                        } else {
+                             slide.classList.add('slide-hidden');
+                        }
+                    });
+                };
+                
+                prevBtn.addEventListener('click', () => {
+                    currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                    updateCarousel();
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    currentIndex = (currentIndex + 1) % slideCount;
+                    updateCarousel();
+                });
+                
+                slides.forEach(slide => {
+                    slide.addEventListener('click', () => {
+                       const slideIndex = parseInt(slide.dataset.index, 10);
+                       if(slideIndex !== currentIndex) {
+                           currentIndex = slideIndex;
+                           updateCarousel();
+                       }
+                    });
+                });
+
+                updateCarousel();
+            }
+
             // --- Interactive Product Carousel Logic ---
             const interactiveProductSection = document.getElementById('interactive-product');
             if (interactiveProductSection) {
@@ -2146,8 +2402,8 @@
                 const addToCartBtn = interactiveProductSection.querySelector('#interactive-add-to-cart-btn');
 
                 const productVariations = [
-                    { id: '17-blue', name: 'Camisa para Eletricista - Azul / cod 12380',  image: 'https://luskabast0.github.io/Nr-10/camisa%202.png' },
-                    { id: '17-gray', name: 'Camisa para Eletricista - Cinza / cod 12470', image: 'https://luskabast0.github.io/Nr-10/camisa%201.png' }
+                    { id: '17-blue', name: 'Camisa Premium - Azul', image:  'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=1964&auto=format&fit=crop' },
+                    { id: '17-gray', name: 'Camisa Premium - Cinza', image: 'https://images.unsplash.com/photo-1622470953794-3ed961c3765e?q=80&w=1964&auto=format&fit=crop' }
                 ];
 
                 let currentSlideIndex = 0;
@@ -2202,8 +2458,8 @@
                 const addToCartBtn = interactiveProductSection2.querySelector('#interactive-add-to-cart-btn-2');
 
                 const productVariations2 = [
-                    { id: '18-black', name: 'Calça para Eletricista - Azul / cod 12373', image:  'https://luskabast0.github.io/Nr-10/cal%C3%A7a%201.png' },
-                    { id: '18-green', name: 'Calça para Eletricista - Cinza / cod 12467', image: 'https://luskabast0.github.io/Nr-10/cal%C3%A7a%202.png' }
+                    { id: '18-black', name: 'Jaqueta Corta-Vento - Preta', image: 'https://images.unsplash.com/photo-1591047139829-d916b5099c75?q=80&w=1974&auto=format&fit=crop' },
+                    { id: '18-green', name: 'Jaqueta Corta-Vento - Verde', image: 'https://images.unsplash.com/photo-1622419326359-5f403fd88554?q=80&w=1964&auto=format&fit=crop' }
                 ];
 
                 let currentSlideIndex = 0;
